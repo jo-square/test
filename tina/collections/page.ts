@@ -1,4 +1,5 @@
 import type { Collection } from "tinacms";
+import { heroBlock } from "../blocks/Hero";
 
 export const PageCollection: Collection = {
   name: "page",
@@ -21,6 +22,16 @@ export const PageCollection: Collection = {
       type: "rich-text",
       isBody: true,
       required: true
-    }
+    },
+    {
+      type: 'object',
+      list: true,
+      name: 'blocks',
+      label: 'Sections',
+      templates: [heroBlock],
+      ui: {
+        visualSelector: true
+      }
+    },
   ]
 }

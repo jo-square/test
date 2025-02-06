@@ -5,14 +5,14 @@ import Footer from '../components/Footer.astro';
 import config from '../content/config/config.json';
 import client from '../../tina/__generated__/client';
 import HomePage from "../../tina/pages/HomePage.tsx";
-const data = await client.queries.page({relativePath: "home.mdx"});
+const data = await client.queries.page({relativePath: "main.mdx"});
 
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={config.seo.title} description={config.seo.description} />
+		<BaseHead title={data.data.page.seo?.title} description={data.data.page.seo?.description} />
 	</head>
 	<body>
 		<Header />

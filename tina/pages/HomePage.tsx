@@ -1,30 +1,45 @@
-import { tinaField, useTina } from "tinacms/dist/react";
+import React from "react";
+import { useTina } from "tinacms/dist/react";
 import type { PageQuery, PageQueryVariables } from "../__generated__/types";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { TinaHero } from "../blocks/Hero";
+import { match } from "ts-pattern";
+import { TinaPanelImageContent } from "../blocks/PanelImageContent";
 
 type Props = {
-	variables: PageQueryVariables;
-	data: PageQuery;
-	query: string;
-}
+  variables: PageQueryVariables;
+  data: PageQuery;
+  query: string;
+};
 
 const HomePage = (props: Props) => {
-	const { data } = useTina({
-		query: props.query,
-		variables: props.variables,
-		data: props.data,
-	})
+  const { data } = useTina({
+    query: props.query,
+    variables: props.variables,
+    data: props.data,
+  });
 
-	const page = data.page;
+  const page = data.page;
 
-
-	return (
-		<main>
-			<div data-tina-field={tinaField(page, "body")}>
-				<TinaMarkdown content={page.body} />
-			</div>
-		</main>
-	)
-}
+  return (
+    <main>
+      {page.blocks
+        ? page.blocks.map((block, i) =>
+            match(block)
+              .with({ __typename: "PageBlocksHero" }, (data) => (
+                <React.Fragment key={i + data.__typename}>
+                  <TinaHero {...data} />
+                </React.Fragment>
+              ))
+              .with({ __typename: "PageBlocksPanelImageContent" }, (data) => (
+                <React.Fragment key={i + data.__typename}>
+                  <TinaPanelImageContent {...data} />
+                </React.Fragment>
+              ))
+              .otherwise(() => null),
+          )
+        : null}
+    </main>
+  );
+};
 
 export default HomePage;

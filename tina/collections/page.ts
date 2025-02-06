@@ -1,5 +1,7 @@
+import { seoPageProps } from "@pcode-at/tinacms-seo/dist/src/schema";
 import type { Collection } from "tinacms";
 import { heroBlock } from "../blocks/Hero";
+import { panelImageContentBlock } from "../blocks/PanelImageContent";
 
 export const PageCollection: Collection = {
   name: "page",
@@ -12,25 +14,15 @@ export const PageCollection: Collection = {
     },
   },
   fields: [
-    {
-      name: "seoTitle",
-      type: "string",
-      required: true
-    },
-    {
-      name: "body",
-      type: "rich-text",
-      isBody: true,
-      required: true
-    },
+    seoPageProps,
     {
       type: 'object',
       list: true,
       name: 'blocks',
       label: 'Sections',
-      templates: [heroBlock],
+      templates: [heroBlock, panelImageContentBlock],
       ui: {
-        visualSelector: true
+        visualSelector: true,
       }
     },
   ]

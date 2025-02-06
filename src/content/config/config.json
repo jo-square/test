@@ -1,8 +1,12 @@
 {
   "seo": {
-    "title": "Astro Blog + Tina",
+    "title": "JoSquare",
     "description": "Welcome to my website!",
     "siteOwner": "Your name here"
+  },
+  "defaultSeo": {
+    "title": "JoSquare",
+    "description": "Créateur de site vitrine, nous sommes présents pour comprendre vos envies et vous apporter plus de visibilité."
   },
   "nav": [
     {

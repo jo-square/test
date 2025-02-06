@@ -1,46 +1,61 @@
-import type { Template } from "tinacms";
+import { type Template } from "tinacms";
+import { tinaField } from "tinacms/dist/react";
+import type { PageBlocksHero } from "../__generated__/types";
 import { ButtonLink } from "../components/ButtonLink";
+import { TinaEdit } from "./TinaEdit";
 
-type HeroProps = {
+type HeroRootProps = {
   imgBackgroundUrl: string;
   title: string;
   link: {
-    seoTitle: string;
-    _sys: {
-      "filename": string
-    }
+    label: string;
+    href: string;
   };
 };
-export function Hero(props: HeroProps) {
-
+const Hero = (props: HeroRootProps) => {
   return (
     <div
       className="flex flex-col bg-cover bg-top"
       style={{
-        backgroundImage: `url(${props.imgBackgroundUrl})`,
+        backgroundImage: `url('${props.imgBackgroundUrl}')`,
       }}
     >
-      <div className="bg-black/60 py-32 md:py-56 ">
-        <div className="flex flex-col gap-8 justify-center items-center px-2 md:px-0 max-w-screen-xl md:mx-auto">
-          <h1 className="font-serif text-white font-bold text-5xl md:text-6xl text-center">
+      <div className="bg-black/60 py-32 md:py-56">
+        <div className="flex max-w-screen-xl flex-col items-center justify-center gap-8 px-2 md:mx-auto md:px-0">
+          <h1 className="text-center font-serif text-5xl font-bold text-white md:text-6xl">
             {props.title}
           </h1>
-          <ButtonLink href={`/${props.link._sys.filename}`} size="large">
-            {props.link.seoTitle}
+          <ButtonLink href={props.link.href} size="large">
+            {props.link.label}
           </ButtonLink>
         </div>
       </div>
     </div>
   );
-}
+};
 
+export const TinaHero = (props: PageBlocksHero) => {
+  return (
+    <TinaEdit data={props}>
+      <Hero
+        title={props.title}
+        imgBackgroundUrl={props.imgBackgroundUrl}
+        link={{
+          label: props.link.linkLabel || props.link.link.seo?.title || "",
+          href: `/${props.link.link._sys.filename}`,
+        }}
+      />
+    </TinaEdit>
+  );
+};
 
 export const heroBlock: Template = {
-  name: 'hero',
-  label: 'Hero',
+  name: "hero",
+  label: "Hero",
   ui: {
+    previewSrc: "",
     defaultItem: {
-      title: 'This Big Text is Totally Awesome',
+      title: "Hero title",
     },
   },
   fields: [
@@ -48,20 +63,33 @@ export const heroBlock: Template = {
       type: "image",
       label: "Image",
       name: "imgBackgroundUrl",
-      required: true
+      required: true,
     },
     {
-      type: 'string',
-      label: 'Title',
-      name: 'title',
-      required: true
+      type: "string",
+      label: "Title",
+      name: "title",
+      required: true,
     },
     {
-      type: 'reference',
-      collections: ['page'],
-      label: 'Link',
-      name: 'link',
-      required: true
+      name: "link",
+      label: "Link",
+      type: "object",
+      required: true,
+      fields: [
+        {
+          type: "reference",
+          collections: ["page"],
+          label: "Link",
+          name: "link",
+          required: true,
+        },
+        {
+          type: "string",
+          label: "Link label",
+          name: "linkLabel",
+        },
+      ],
     },
   ],
-}
+};

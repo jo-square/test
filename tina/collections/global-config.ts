@@ -1,5 +1,37 @@
-import type { Collection } from "tinacms";
+import { facebook, openGraph, twitter } from "@pcode-at/tinacms-seo/dist/src/schema";
+import type { Collection, TinaField } from "tinacms";
 import IconComponent from "../components/IconComponent";
+
+const expertDefaultSeoPageProps: TinaField = {
+  name: "defaultSeo",
+  label: "Default Seo",
+  type: "object",
+  fields: [
+    {
+      type: "string",
+      label: "Title",
+      name: "title",
+      required: true
+    },
+    {
+      type: "string",
+      label: "Description",
+      name: "description",
+      ui: {
+        component: "textarea",
+      },
+      required: true
+    },
+    {
+      type: "string",
+      label: "Canonical",
+      name: "canonical",
+    },
+    openGraph,
+    facebook,
+    twitter
+  ],
+};
 
 export const GlobalConfigCollection: Collection = {
   name: "config",
@@ -10,35 +42,7 @@ export const GlobalConfigCollection: Collection = {
     global: true,
   },
   fields: [
-    {
-      name: "seo",
-      label: "General site config",
-      type: "object",
-      fields: [
-        {
-          name: "title",
-          label: "Site title for SEO",
-          type: "string",
-          required: true,
-        },
-        {
-          name: "description",
-          label: "Site description for SEO",
-          type: "string",
-          required: true,
-        },
-        {
-          name: "siteOwner",
-          label: "Your Name, Company Name (Used in the footer",
-          required: true,
-          type: "string",
-          ui: {
-            defaultValue: "Your name here"
-          },
-        },
-        // Add more settings here...
-      ],
-    },
+    expertDefaultSeoPageProps,
     {
       name: "nav",
       label: "Site Navigation Menu (Reorder, Add, Remove)",

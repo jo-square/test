@@ -2,6 +2,8 @@ import { seoPageProps } from "@pcode-at/tinacms-seo/dist/src/schema";
 import type { Collection } from "tinacms";
 import { heroBlock } from "../blocks/Hero";
 import { panelImageContentBlock } from "../blocks/PanelImageContent";
+import { ExampleBlock } from "../blocks/Test";
+import { Example2Block } from "../blocks/with_stats";
 
 export const PageCollection: Collection = {
   name: "page",
@@ -16,14 +18,19 @@ export const PageCollection: Collection = {
   fields: [
     seoPageProps,
     {
-      type: 'object',
+      type: "object",
       list: true,
-      name: 'blocks',
-      label: 'Sections',
-      templates: [heroBlock, panelImageContentBlock],
+      name: "blocks",
+      label: "Sections",
+      templates: [
+        heroBlock,
+        panelImageContentBlock,
+        ExampleBlock,
+        Example2Block,
+      ],
       ui: {
         visualSelector: true,
-      }
+      },
     },
-  ]
-}
+  ],
+};

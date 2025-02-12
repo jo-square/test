@@ -4,6 +4,8 @@ import { match } from "ts-pattern";
 import type { PageQuery, PageQueryVariables } from "../__generated__/types";
 import { TinaHero } from "../blocks/Hero";
 import { TinaPanelImageContent } from "../blocks/PanelImageContent";
+import { Example } from "../blocks/Test";
+import Example2 from "../blocks/with_stats";
 
 type Props = {
   variables: PageQueryVariables;
@@ -28,6 +30,16 @@ const TinaPage = (props: Props) => {
               .with({ __typename: "PageBlocksHero" }, (data) => (
                 <React.Fragment key={i + data.__typename}>
                   <TinaHero {...data} />
+                </React.Fragment>
+              ))
+              .with({ __typename: "PageBlocksExample" }, (data) => (
+                <React.Fragment key={i + data.__typename}>
+                  <Example {...data} />
+                </React.Fragment>
+              ))
+              .with({ __typename: "PageBlocksExample2" }, (data) => (
+                <React.Fragment key={i + data.__typename}>
+                  <Example2 {...data} />
                 </React.Fragment>
               ))
               .with({ __typename: "PageBlocksPanelImageContent" }, (data) => (

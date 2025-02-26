@@ -5,4 +5,5 @@ node_modules
 .next/
 .astro/
 .dist/
+dist/
 .env

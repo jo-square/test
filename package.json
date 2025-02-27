@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
+    "api": "node --experimental-strip-types ./tina/api.mts",
     "build": "yarn pre-build && tinacms build && astro build && yarn post-build",
     "pre-build": "node --experimental-strip-types ./build/pre-build.mts",
     "post-build": "node --experimental-strip-types ./build/post-build.mts",
@@ -16,13 +17,19 @@
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
     "@heroicons/react": "^2.2.0",
+    "@netlify/functions": "^3.0.0",
     "@pcode-at/tinacms-seo": "^2.0.0",
     "@tanstack/react-virtual": "^3.11.2",
+    "@tinacms/auth": "^1.0.11",
     "@unpic/react": "^1.0.0",
     "astro": "^5.1.5",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "next-tinacms-cloudinary": "^13.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
+    "serverless-http": "^3.2.0",
     "tinacms": "^2.7.0",
     "ts-pattern": "^5.6.2",
     "unpic": "^4.1.2"
@@ -30,7 +37,10 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.3",
     "@tinacms/cli": "^1.8.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/node": "^22.10.5",
+    "dotenv": "^16.4.7",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.3"

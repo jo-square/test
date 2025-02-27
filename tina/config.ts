@@ -23,15 +23,13 @@ export default defineConfig({
     publicFolder: "public",
   },
   media: {
-    tina: {
-      mediaRoot: "",
-      publicFolder: "public",
+    loadCustomStore: async () => {
+      const pack = await import("next-tinacms-cloudinary");
+      return pack.createTinaCloudCloudinaryMediaStore({
+        baseUrl: "http://localhost:1234/api/cloudinary/media",
+      });
     },
-  },
-  tinaioConfig: {
-    assetsApiUrlOverride: "https://assets.tinajs.io",
-  },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
+  }, // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [BlogCollection, PageCollection, GlobalConfigCollection],
   },
